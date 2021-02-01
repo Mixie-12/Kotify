@@ -32,6 +32,7 @@ import me.dreamhopping.kotify.api.authorization.error.KotifyAuthenticationExcept
 import me.dreamhopping.kotify.api.authorization.error.SpotifyAuthenticationError
 import me.dreamhopping.kotify.api.scopes.KotifyScopesBuilder
 import java.util.*
+import kotlin.jvm.Throws
 
 /**
  * The response received from Spotify when we exchange a code for an access token
@@ -157,7 +158,9 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
      * Get an access token, refresh token, token type and expiry date from a code
      *
      * @param code: This is sent from the Spotify API when the user is redirected from the authorize endpoint to your redirect URI
+     * @throws KotifyAuthenticationException
      */
+    @Throws(KotifyAuthenticationException::class)
     suspend fun authorize(code: String): KotifyTokenResponse {
         try {
             return client.post {
