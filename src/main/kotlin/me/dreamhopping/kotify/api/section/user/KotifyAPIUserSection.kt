@@ -28,9 +28,6 @@ import me.dreamhopping.kotify.api.section.user.types.KotifyUserProfile
 class KotifyAPIUserSection(private val api: KotifyAPI) : KotifyAPISection() {
     private val apiPath: String = "me"
 
-    suspend fun fetchProfile(): KotifyUserProfile {
-        val json: JsonObject = this.makeRequest("${api.url}/$apiPath", api.credentials)
-        return Json.decodeFromJsonElement(json)
-    }
+    suspend fun fetchProfile(): KotifyUserProfile = this.makeRequest("${api.url}/$apiPath", api.credentials)
     suspend fun fetchPlaylists(): KotifyUserPlaylists = this.makeRequest("${api.url}/$apiPath/playlists", api.credentials)
 }
