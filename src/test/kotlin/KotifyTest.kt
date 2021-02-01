@@ -16,7 +16,6 @@
  */
 
 import io.kotest.core.spec.style.ShouldSpec
-import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import me.dreamhopping.kotify.api.authorization.error.KotifyAuthenticationException
 import me.dreamhopping.kotify.api.authorization.flows.authorizationCodeFlow

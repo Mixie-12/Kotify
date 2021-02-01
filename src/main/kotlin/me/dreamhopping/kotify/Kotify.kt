@@ -23,7 +23,7 @@ import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
 /**
  * The main class for Kotify
  *
- * @see KotifyAuthorizationFlowBuilder
+ * @see KotifyBuilder
  * @see kotify
  */
 class Kotify(builder: KotifyBuilder) {
@@ -32,12 +32,8 @@ class Kotify(builder: KotifyBuilder) {
 
 /**
  * The builder function for the Kotify class
- * @param clientID: The client id for your application from the Spotify Dashboard
  *
  * @see KotifyBuilder
  * @see Kotify
  */
-fun kotify(
-    init: KotifyBuilder
-    .() -> Unit
-) = KotifyBuilder().apply(init).build()
+fun kotify(init: KotifyBuilder.() -> Unit) = KotifyBuilder().apply(init).build()
