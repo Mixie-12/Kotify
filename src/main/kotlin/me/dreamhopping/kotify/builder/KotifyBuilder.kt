@@ -21,10 +21,13 @@ import me.dreamhopping.kotify.Kotify
 import me.dreamhopping.kotify.builder.credentials.KotifyCredentialsBuilder
 
 class KotifyBuilder {
+    /**
+     * The Spotify API credentials
+     */
     var credentialsBuilder = KotifyCredentialsBuilder()
 
     /**
-     *
+     * @return a KotifyCredentials instance
      */
     fun credentials(init: KotifyCredentialsBuilder.() -> Unit): KotifyCredentialsBuilder {
         credentialsBuilder = KotifyCredentialsBuilder().apply(init)
@@ -32,7 +35,7 @@ class KotifyBuilder {
     }
 
     /**
-     * Returns a Kotify instance from this builder
+     * @return a Kotify instance from this builder
      */
     fun build(): Kotify {
         return Kotify(this)

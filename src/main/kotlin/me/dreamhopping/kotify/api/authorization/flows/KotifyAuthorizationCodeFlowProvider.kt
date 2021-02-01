@@ -33,6 +33,11 @@ import me.dreamhopping.kotify.api.authorization.error.SpotifyAuthenticationError
 import me.dreamhopping.kotify.api.scopes.KotifyScopesBuilder
 import java.util.*
 
+/**
+ * The response received from Spotify when we exchange a code for an access token
+ *
+ * @see KotifyAuthorizationCodeFlowProvider.authorize
+ */
 @Serializable
 data class KotifyTokenResponse(
     val access_token: String,
@@ -42,11 +47,37 @@ data class KotifyTokenResponse(
     val refresh_token: String
 )
 
+/**
+ * The builder for the KotifyAuthorizationCodeFlowProvider
+ * @see KotifyAuthorizationCodeFlowProvider
+ */
 class KotifyAuthorizationCodeFlowBuilder {
+    /**
+     * The client id provided to you by Spotify
+     */
     var clientID: String? = null
+
+    /**
+     * The client secret provided to you by Spotify
+     *
+     * Can be null, authorize request will throw but getAuthorizeURL will not throw
+     */
     var clientSecret: String? = null
+
+    /**
+     * The URI that you want the Spotify API to redirect to, this is where you'll handle the response
+     */
     var redirectURI: String? = null
+
+    /**
+     * Whether or not to force the user to approve the app again if they’ve already done so
+     */
     var showDialog = false
+
+    /**
+     * The scopes (permissions) that you want your application to have
+     * @see KotifyScopesBuilder
+     */
     var scopesBuilder: KotifyScopesBuilder = KotifyScopesBuilder()
 
     /**
@@ -63,6 +94,10 @@ class KotifyAuthorizationCodeFlowBuilder {
     }
 }
 
+/**
+ * A function to build the authorization flow provider
+ * @see KotifyAuthorizationCodeFlowBuilder
+ */
 fun authorizationCodeFlow(init: KotifyAuthorizationCodeFlowBuilder.() -> Unit) =
     KotifyAuthorizationCodeFlowBuilder().apply(init).build()
 
@@ -71,10 +106,12 @@ fun authorizationCodeFlow(init: KotifyAuthorizationCodeFlowBuilder.() -> Unit) =
  * Information needed:
  *   - clientID
  *   - redirectURI
- *  Optional:
- *   - state
+ * Optional:
+ *   - state (todo)
  *   - scopes
  *   - show_dialog
+ *
+ * @see KotifyAuthorizationFlow
  */
 class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBuilder) : KotifyAuthorizationFlow {
     /**

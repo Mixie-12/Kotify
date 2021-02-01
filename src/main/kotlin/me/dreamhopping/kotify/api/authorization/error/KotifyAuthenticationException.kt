@@ -19,6 +19,17 @@ package me.dreamhopping.kotify.api.authorization.error
 
 import kotlinx.serialization.Serializable
 
+/**
+ * The standard error object returned when Spotify has an error during the authorization flow
+ *
+ * @see <a href="https://developer.spotify.com/documentation/web-api/#authentication-error-object">Spotify's Documentation</a>
+ */
 @Serializable
 data class SpotifyAuthenticationError(val error: String, val error_description: String)
+
+/**
+ * Thrown when Spotify returns an error response
+ *
+ * @see SpotifyAuthenticationError
+ */
 data class KotifyAuthenticationException(val error: String, val description: String) : Exception()

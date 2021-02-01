@@ -17,6 +17,9 @@
 
 package me.dreamhopping.kotify.api.scopes
 
+/**
+ * The class which holds the list of scopes the user has
+ */
 data class KotifyScopes(val allScopes: List<SpotifyScope> = listOf())
 
 class KotifyScopesBuilder {

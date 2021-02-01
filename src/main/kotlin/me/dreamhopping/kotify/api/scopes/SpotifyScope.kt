@@ -17,6 +17,10 @@
 
 package me.dreamhopping.kotify.api.scopes
 
+/**
+ * Scopes enable your application to access specific API endpoints on behalf of a user
+ * The set of scopes you pass in your call determines the access permissions that the user is required to grant
+ */
 enum class SpotifyScope(val id: String) {
     ugcImageUpload("ugc-image-upload"),
 

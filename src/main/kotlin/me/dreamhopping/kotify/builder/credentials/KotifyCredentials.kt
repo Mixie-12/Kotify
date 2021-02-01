@@ -23,8 +23,8 @@ data class KotifyCredentials(
 )
 
 class KotifyCredentialsBuilder {
-    var accessToken: String? = null
-    var refreshToken: String? = null
+    private var accessToken: String? = null
+    private var refreshToken: String? = null
 
     /**
      * Creates a KotifyAuthorizationFlowCredentials instance from this builder
