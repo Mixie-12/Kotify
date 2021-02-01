@@ -15,22 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.builder.credentials
+package me.dreamhopping.kotify.api.section.error
 
-data class KotifyCredentials(
-    val accessToken: String,
-    val refreshToken: String?
-)
+import kotlinx.serialization.Serializable
 
-class KotifyCredentialsBuilder {
-    var accessToken: String? = null
-    var refreshToken: String? = null
-
-    /**
-     * Creates a KotifyAuthorizationFlowCredentials instance from this builder
-     */
-    fun build() = KotifyCredentials(
-        accessToken ?: error("accessToken can't be null!"),
-        refreshToken
-    )
+/**
+ * The standard error object returned when Spotify has an error during an API request
+ *
+ * @see <a href="https://developer.spotify.com/documentation/web-api/#authentication-error-object">Spotify's Documentation</a>
+ */
+@Serializable
+data class SpotifyAPIRequestError(val error: SpotifyAPIError) {
+    @Serializable
+    data class SpotifyAPIError(val status: Int, val message: String)
 }
+
+/**
+ * Thrown when Spotify returns an error response
+ *
+ * @see SpotifyAPIRequestError
+ */
+data class KotifyAPIRequestException(val status: Int, override val message: String) : Exception()

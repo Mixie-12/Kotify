@@ -17,6 +17,7 @@
 
 package me.dreamhopping.kotify
 
+import me.dreamhopping.kotify.api.KotifyAPI
 import me.dreamhopping.kotify.builder.KotifyBuilder
 import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
 
@@ -28,6 +29,7 @@ import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
  */
 class Kotify(builder: KotifyBuilder) {
     val credentials: KotifyCredentials = builder.credentialsBuilder.build()
+    val api: KotifyAPI = KotifyAPI(credentials)
 }
 
 /**

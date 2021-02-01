@@ -26,13 +26,13 @@ import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import me.dreamhopping.kotify.api.authorization.KotifyAuthorizationFlow
 import me.dreamhopping.kotify.api.authorization.error.KotifyAuthenticationException
 import me.dreamhopping.kotify.api.authorization.error.SpotifyAuthenticationError
 import me.dreamhopping.kotify.api.scopes.KotifyScopesBuilder
 import java.util.*
-import kotlin.jvm.Throws
 
 /**
  * The response received from Spotify when we exchange a code for an access token
@@ -41,11 +41,15 @@ import kotlin.jvm.Throws
  */
 @Serializable
 data class KotifyTokenResponse(
-    val access_token: String,
-    val token_type: String,
-    val scope: String,
-    val expires_in: String,
-    val refresh_token: String
+    @SerialName("access_token")
+    val accessToken: String,
+    @SerialName("token_type")
+    val tokenType: String,
+    @SerialName("expires_in")
+    val expiresIn: Int,
+    @SerialName("refresh_token")
+    val refreshToken: String,
+    val scope: String
 )
 
 /**

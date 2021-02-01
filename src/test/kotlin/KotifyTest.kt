@@ -36,8 +36,7 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                         redirectURI = "http://localhost:9103/callback/"
 
                         scopes {
-                            +SpotifyScope.userReadPlaybackPosition
-                            +SpotifyScope.userReadPlaybackState
+                            all()
                         }
                     }
                 }
@@ -85,7 +84,8 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                 assertDoesNotThrow {
                     runBlocking {
                         val response = authFlow.authorize(System.getProperty("code"))
-                        assertTrue(response.access_token.length > 1)
+                        println(response.accessToken)
+                        assertTrue(response.accessToken.length > 1)
                     }
                 }
             }
