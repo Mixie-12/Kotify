@@ -17,11 +17,6 @@
 
 package me.dreamhopping.kotify.api
 
-import io.ktor.client.*
-import io.ktor.client.engine.okhttp.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.request.*
 import me.dreamhopping.kotify.api.section.user.KotifyAPIUserSection
 import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
 

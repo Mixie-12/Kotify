@@ -37,7 +37,7 @@ class KotifyAPITest: ShouldSpec() {
                         println(userInfo)
 
                         assertTrue {
-                            userInfo.displayName == "dreamhopping"
+                            userInfo?.displayName == "dreamhopping"
                         }
                     }
                 }
@@ -69,9 +69,7 @@ class KotifyAPITest: ShouldSpec() {
                 }
 
                 assertDoesNotThrow {
-                    runBlocking {
-                        println(kotify.api.user.fetchCurrentTrack())
-                    }
+                    println(kotify.api.user.fetchCurrentTrack())
                 }
             }
         }

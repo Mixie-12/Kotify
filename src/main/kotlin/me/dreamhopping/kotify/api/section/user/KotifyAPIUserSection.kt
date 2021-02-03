@@ -17,30 +17,19 @@
 
 package me.dreamhopping.kotify.api.section.user
 
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.decodeFromJsonElement
 import me.dreamhopping.kotify.api.KotifyAPI
 import me.dreamhopping.kotify.api.section.KotifyAPISection
 import me.dreamhopping.kotify.api.section.user.types.KotifyUserCurrentTrack
 import me.dreamhopping.kotify.api.section.user.types.KotifyUserPlaylists
 import me.dreamhopping.kotify.api.section.user.types.KotifyUserProfile
-import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
 
 class KotifyAPIUserSection(private val api: KotifyAPI) : KotifyAPISection() {
     private val apiPath: String = "me"
 
-    suspend fun fetchProfile(): KotifyUserProfile = this.makeRequest("${api.url}/$apiPath", api.credentials)
-    suspend fun fetchPlaylists(): KotifyUserPlaylists =
+    fun fetchProfile(): KotifyUserProfile? = this.makeRequest("${api.url}/$apiPath", api.credentials)
+    fun fetchPlaylists(): KotifyUserPlaylists? =
         this.makeRequest("${api.url}/$apiPath/playlists", api.credentials)
-
-    suspend fun fetchCurrentTrack(): KotifyUserCurrentTrack {
-        // TODO: Handle 200 OK with no data
-        // TODO: Handle 204 NO CONTENT
-
-        return this.makeRequest(
-            "${api.url}/$apiPath/player",
-            api.credentials
-        )
+    fun fetchCurrentTrack(): KotifyUserCurrentTrack? {
+        return this.makeRequest("${api.url}/$apiPath/player", api.credentials)
     }
 }

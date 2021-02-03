@@ -17,22 +17,17 @@
 
 package me.dreamhopping.kotify.api.authorization.flows
 
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.okhttp.*
-import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.request.*
-import io.ktor.client.request.forms.*
-import io.ktor.http.*
+import khttp.post
+import khttp.structures.authorization.BasicAuthorization
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import me.dreamhopping.kotify.api.authorization.KotifyAuthorizationFlow
 import me.dreamhopping.kotify.api.authorization.error.KotifyAuthenticationException
 import me.dreamhopping.kotify.api.authorization.error.SpotifyAuthenticationError
 import me.dreamhopping.kotify.api.scopes.KotifyScopesBuilder
-import java.util.*
+import java.net.URLEncoder
 
 /**
  * The response received from Spotify when we exchange a code for an access token
@@ -147,16 +142,17 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
     private val showDialog = builder.showDialog
 
     /**
-     * The http client used to make requests to the Spotify API
+     * Returns an authorization URL
      */
-    private val client = HttpClient(OkHttp) {
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
-                isLenient = true
-                ignoreUnknownKeys = true
-            })
+    val authorizationURL: String
+        get() {
+            return "https://accounts.spotify.com/authorize" +
+                    "?response_type=code" +
+                    "&client_id=$clientID" +
+                    "&scope=${URLEncoder.encode(scopes.joinToString(" ") { it.id }, "utf-8")}" +
+                    "&redirect_uri=${URLEncoder.encode(redirectURI, "utf-8")}" +
+                    "&show_dialog=$showDialog"
         }
-    }
 
     /**
      * Get an access token, refresh token, token type and expiry date from a code
@@ -165,41 +161,21 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
      * @throws KotifyAuthenticationException
      */
     @Throws(KotifyAuthenticationException::class)
-    suspend fun authorize(code: String): KotifyTokenResponse {
-        try {
-            return client.post {
-                headers {
-                    append(
-                        "Authorization",
-                        "Basic ${"${clientID}:${clientSecret ?: error("clientSecret can not be null for authorization!")}".toBase64()}"
-                    )
-                }
-                url("https://accounts.spotify.com/api/token")
-                body = FormDataContent(Parameters.build {
-                    append("grant_type", "authorization_code")
-                    append("code", code)
-                    append("redirect_uri", redirectURI)
-                })
-            }
-        } catch (e: ClientRequestException) {
-            val error: SpotifyAuthenticationError = e.response.receive()
+    fun authorize(code: String): KotifyTokenResponse {
+        if (clientSecret == null) throw KotifyAuthenticationException("Error", "clientSecret can not be null")
+
+        val body = mapOf("grant_type" to "authorization_code", "code" to code, "redirect_uri" to redirectURI)
+        val request = post(
+            url = "https://accounts.spotify.com/api/token",
+            auth = BasicAuthorization(clientID, clientSecret),
+            data = body
+        )
+
+        if (request.statusCode != 200) {
+            val error: SpotifyAuthenticationError = Json.decodeFromString(request.text)
             throw KotifyAuthenticationException(error.error, error.error_description)
         }
-    }
 
-    /**
-     * Builds a URL to use for Authorization
-     */
-    fun getAuthorizeURL(): String {
-        return URLBuilder("https://accounts.spotify.com/authorize").apply {
-            parameters.append("client_id", clientID)
-            parameters.append("redirect_uri", redirectURI)
-            parameters.append("response_type", "code")
-            if (scopes.isNotEmpty()) parameters.append("scopes", scopes.joinToString(separator = " "))
-            if (showDialog) parameters.append("showDialog", showDialog.toString())
-        }.buildString()
-            .replace("+", "%20") // We must replace "+" with "%20" as java does not encode the URL the way we want it to
+        return Json.decodeFromString(request.text)
     }
-
-    private fun String.toBase64(): String = Base64.getEncoder().encodeToString(this.toByteArray())
 }

@@ -17,44 +17,31 @@
 
 package me.dreamhopping.kotify.api.section
 
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.okhttp.*
-import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.request.*
+import khttp.get
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import me.dreamhopping.kotify.api.section.error.KotifyAPIRequestException
-import me.dreamhopping.kotify.api.section.error.SpotifyAPIRequestError
 import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
 
 /**
  * A section of the Kotify API
  */
 abstract class KotifyAPISection {
-    /**
-     * The HttpClient to be used by all API sections
-     */
-    val client = HttpClient(OkHttp) {
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
-                isLenient = true
-                ignoreUnknownKeys = true
-            })
-        }
+    val json = Json {
+        ignoreUnknownKeys = true
+        isLenient = true
     }
 
     @Throws(KotifyAPIRequestException::class)
-    suspend inline fun <reified T> makeRequest(url: String, credentials: KotifyCredentials): T {
-        try {
-            return client.get(url) {
-                headers {
-                    append("Authorization", "Bearer ${credentials.accessToken}")
-                }
-            }
-        } catch (e: ClientRequestException) {
-            val response: SpotifyAPIRequestError = e.response.receive()
-            throw KotifyAPIRequestException(response.error.status, response.error.message)
+    inline fun <reified T> makeRequest(url: String, credentials: KotifyCredentials): T? {
+        val response = get(url, mapOf("Authorization" to "Bearer ${credentials.accessToken}"))
+        if (response.statusCode == 204) {
+            // No content was supplied
+            return null
+        }else if (response.statusCode != 200) {
+            throw KotifyAPIRequestException(response.statusCode, response.text)
         }
+
+        return json.decodeFromString(response.text)
     }
 }

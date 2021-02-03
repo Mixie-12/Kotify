@@ -36,7 +36,11 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                         redirectURI = "http://localhost:9103/callback/"
 
                         scopes {
-                            all()
+                            +SpotifyScope.userReadPlaybackState
+                            +SpotifyScope.userReadCurrentlyPlaying
+                            +SpotifyScope.userReadPrivate
+                            +SpotifyScope.userReadEmail
+                            +SpotifyScope.userReadPlaybackPosition
                         }
                     }
                 }
@@ -55,15 +59,18 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                     clientID = System.getProperty("clientID")
                     clientSecret = System.getProperty("clientSecret")
                     redirectURI = "http://localhost:9103/callback/"
+                    showDialog = true
 
                     scopes {
-                        all()
+                        +SpotifyScope.userReadPlaybackState
+                        +SpotifyScope.userReadCurrentlyPlaying
+                        +SpotifyScope.userReadPrivate
+                        +SpotifyScope.userReadEmail
+                        +SpotifyScope.userReadPlaybackPosition
                     }
                 }
-                val url = authFlow.getAuthorizeURL()
-
-                println("URL: $url")
-                assertDoesNotThrow { URL(url) }
+                println("URL: ${authFlow.authorizationURL}")
+                assertDoesNotThrow { URL(authFlow.authorizationURL) }
             }
         }
 
