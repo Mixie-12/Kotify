@@ -40,10 +40,7 @@ class KotifyAPIUserSection(private val api: KotifyAPI) : KotifyAPISection() {
 
         return this.makeRequest(
             "${api.url}/$apiPath/player",
-            KotifyCredentials(
-                "BQAh_DNXdesbA-AJbSkRMxV8mykgYx9TYtg0CNBuhEt6eAKrX-LsOVYj33ergiXHAfRp05J8Ob1lYGpaM09iFQaPVshMOOTxOApvOp3mrm5HlS4MIAiT0SHqfDt7I3mO8VUeshYiXFG8D8_4xJLMQL0ts3BNp5mH3TSsBg8v7i7W6SShq8F1yBWHugwTW8s",
-                null
-            )
+            api.credentials
         )
     }
 }
