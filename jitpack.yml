@@ -2,4 +2,4 @@ jdk:
   - openjdk9
 install:
   - chmod +x ./gradlew
-  - ./gradlew clean build
+  - ./gradlew clean publishToMavenLocal
