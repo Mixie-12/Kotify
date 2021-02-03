@@ -191,14 +191,14 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
      * Builds a URL to use for Authorization
      */
     fun getAuthorizeURL(): String {
-        val builder = URLBuilder("https://accounts.spotify.com/authorize")
-        builder.parameters.append("client_id", clientID)
-        builder.parameters.append("redirect_uri", redirectURI)
-        builder.parameters.append("response_type", "code")
-        if (scopes.isNotEmpty()) builder.parameters.append("scopes", scopes.joinToString(separator = " "))
-        if (showDialog) builder.parameters.append("showDialog", showDialog.toString())
-
-        return builder.buildString()
+        return URLBuilder("https://accounts.spotify.com/authorize").apply {
+            parameters.append("client_id", clientID)
+            parameters.append("redirect_uri", redirectURI)
+            parameters.append("response_type", "code")
+            if (scopes.isNotEmpty()) parameters.append("scopes", scopes.joinToString(separator = " "))
+            if (showDialog) parameters.append("showDialog", showDialog.toString())
+        }.buildString()
+            .replace("+", "%20") // We must replace "+" with "%20" as java does not encode the URL the way we want it to
     }
 
     private fun String.toBase64(): String = Base64.getEncoder().encodeToString(this.toByteArray())
