@@ -57,8 +57,7 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                     redirectURI = "http://localhost:9103/callback/"
 
                     scopes {
-                        +SpotifyScope.userReadPlaybackPosition
-                        +SpotifyScope.userReadPlaybackState
+                        all()
                     }
                 }
                 val url = authFlow.getAuthorizeURL()
@@ -76,8 +75,7 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                     redirectURI = "http://localhost:9103/callback/"
 
                     scopes {
-                        +SpotifyScope.userReadPlaybackPosition
-                        +SpotifyScope.userReadPlaybackState
+                        all()
                     }
                 }
 
@@ -97,8 +95,7 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                     redirectURI = "http://localhost:9103/callback/"
 
                     scopes {
-                        +SpotifyScope.userReadPlaybackPosition
-                        +SpotifyScope.userReadPlaybackState
+                        all()
                     }
                 }
 
