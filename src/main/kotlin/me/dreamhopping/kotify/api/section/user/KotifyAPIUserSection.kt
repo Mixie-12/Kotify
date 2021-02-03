@@ -22,12 +22,28 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
 import me.dreamhopping.kotify.api.KotifyAPI
 import me.dreamhopping.kotify.api.section.KotifyAPISection
+import me.dreamhopping.kotify.api.section.user.types.KotifyUserCurrentTrack
 import me.dreamhopping.kotify.api.section.user.types.KotifyUserPlaylists
 import me.dreamhopping.kotify.api.section.user.types.KotifyUserProfile
+import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
 
 class KotifyAPIUserSection(private val api: KotifyAPI) : KotifyAPISection() {
     private val apiPath: String = "me"
 
     suspend fun fetchProfile(): KotifyUserProfile = this.makeRequest("${api.url}/$apiPath", api.credentials)
-    suspend fun fetchPlaylists(): KotifyUserPlaylists = this.makeRequest("${api.url}/$apiPath/playlists", api.credentials)
+    suspend fun fetchPlaylists(): KotifyUserPlaylists =
+        this.makeRequest("${api.url}/$apiPath/playlists", api.credentials)
+
+    suspend fun fetchCurrentTrack(): KotifyUserCurrentTrack {
+        // TODO: Handle 200 OK with no data
+        // TODO: Handle 204 NO CONTENT
+
+        return this.makeRequest(
+            "${api.url}/$apiPath/player",
+            KotifyCredentials(
+                "BQAh_DNXdesbA-AJbSkRMxV8mykgYx9TYtg0CNBuhEt6eAKrX-LsOVYj33ergiXHAfRp05J8Ob1lYGpaM09iFQaPVshMOOTxOApvOp3mrm5HlS4MIAiT0SHqfDt7I3mO8VUeshYiXFG8D8_4xJLMQL0ts3BNp5mH3TSsBg8v7i7W6SShq8F1yBWHugwTW8s",
+                null
+            )
+        )
+    }
 }

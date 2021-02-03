@@ -43,6 +43,7 @@ class KotifyAPITest: ShouldSpec() {
                 }
             }
         }
+
         context("Playlists") {
             should("not throw") {
                 val kotify = kotify {
@@ -54,6 +55,22 @@ class KotifyAPITest: ShouldSpec() {
                 assertDoesNotThrow {
                     runBlocking {
                         println(kotify.api.user.fetchPlaylists())
+                    }
+                }
+            }
+        }
+
+        context("Current Track") {
+            should("not throw") {
+                val kotify = kotify {
+                    credentials {
+                        accessToken = System.getProperty("accessToken")
+                    }
+                }
+
+                assertDoesNotThrow {
+                    runBlocking {
+                        println(kotify.api.user.fetchCurrentTrack())
                     }
                 }
             }
