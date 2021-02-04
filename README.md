@@ -80,3 +80,35 @@ val tokenDetails = authFlow.authorize("code")
 val accessToken = tokenDetails.accessToken
 val refreshToken = tokenDetails.refreshToken
 ```
+
+##### Handling exceptions
+API exceptions:
+```kotlin
+val kotify = kotify {
+    credentials {
+        accessToken = "accesstoken" // Required
+        refreshToken = "refreshtoken" // Optional
+    }
+}
+
+try {
+    val currentTrack = kotify.api.user.fetchCurrentTrack()
+} catch (e: KotifyAPIRequestException) {
+    // This throws if something has gone wrong f.ex. you don't have the correct permissions
+    e.printStackTrace()
+}
+```
+
+Authorization exceptions:
+```kotlin
+val authFlow = authorizationCodeFlow {
+    ...
+}
+
+try {
+    val tokenDetails = authFlow.authorize("code")
+} catch (e: KotifyAuthenticationException) {
+    // This throws if something has gone wrong f.ex. the code has expired
+    e.printStackTrace()
+}
+```
