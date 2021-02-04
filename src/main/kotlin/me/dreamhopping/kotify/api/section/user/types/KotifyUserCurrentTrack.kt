@@ -63,7 +63,7 @@ data class KotifyUserCurrentTrack(
         val discNumber: Long,
 
         @SerialName("duration_ms")
-        val progressMs: Long,
+        val durationMs: Long,
 
         val explicit: Boolean,
 
