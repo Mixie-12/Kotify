@@ -129,7 +129,7 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
     /**
      * The URI that you want the Spotify API to redirect to, this is where you'll handle the response
      */
-    private val redirectURI = builder.redirectURI ?: error("clientID cannot be null!")
+    private val redirectURI = builder.redirectURI ?: error("redirect_uri cannot be null!")
 
     /**
      * The scopes (permissions) that you want your application to have
