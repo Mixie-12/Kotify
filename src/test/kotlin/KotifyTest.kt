@@ -19,7 +19,6 @@ import io.kotest.core.spec.style.ShouldSpec
 import kotlinx.coroutines.runBlocking
 import me.dreamhopping.kotify.api.authorization.error.KotifyAuthenticationException
 import me.dreamhopping.kotify.api.authorization.flows.authorizationCodeFlow
-import me.dreamhopping.kotify.api.scopes.SpotifyScope
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import java.net.URL
@@ -36,11 +35,7 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                         redirectURI = "http://localhost:9103/callback/"
 
                         scopes {
-                            +SpotifyScope.userReadPlaybackState
-                            +SpotifyScope.userReadCurrentlyPlaying
-                            +SpotifyScope.userReadPrivate
-                            +SpotifyScope.userReadEmail
-                            +SpotifyScope.userReadPlaybackPosition
+                            all()
                         }
                     }
                 }
@@ -62,11 +57,7 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                     showDialog = true
 
                     scopes {
-                        +SpotifyScope.userReadPlaybackState
-                        +SpotifyScope.userReadCurrentlyPlaying
-                        +SpotifyScope.userReadPrivate
-                        +SpotifyScope.userReadEmail
-                        +SpotifyScope.userReadPlaybackPosition
+                        all()
                     }
                 }
                 println("URL: ${authFlow.authorizationURL}")

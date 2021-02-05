@@ -22,30 +22,98 @@ package me.dreamhopping.kotify.api.scopes
  * The set of scopes you pass in your call determines the access permissions that the user is required to grant
  */
 enum class SpotifyScope(val id: String) {
-    ugcImageUpload("ugc-image-upload"),
+    /**
+     * Write access to user-provided images
+     */
+    UGC_IMAGE_UPLOAD("ugc-image-upload"),
 
-    userReadRecentlyPlayed("user-read-recently-played"),
-    userTopRead("user-top-read"),
-    userReadPlaybackPosition("user-read-playback-position"),
+    /**
+     * Read access to a user’s recently played tracks
+     */
+    USER_READ_RECENTLY_PLAYED("user-read-recently-played"),
 
-    userReadPlaybackState("user-read-playback-state"),
-    userModifyPlaybackState("user-modify-playback-state"),
-    userReadCurrentlyPlaying("user-read-currently-playing"),
+    /**
+     * Read access to a user’s recently played tracks
+     */
+    USER_TOP_READ("user-top-read"),
 
-    appRemoteControl("app-remote-control"),
-    streaming("streaming"),
+    /**
+     * Read access to a user’s playback position in a content
+     */
+    USER_READ_PLAYBACK_POSITION("user-read-playback-position"),
 
-    playlistModifyPublic("playlist-modify-public"),
-    playlistModifyPrivate("playlist-modify-private"),
-    playlistReadPrivate("playlist-read-private"),
-    playlistReadCollaborative("playlist-read-collaborative"),
+    /**
+     * Read access to a user’s player state
+     */
+    USER_READ_PLAYBACK_STATE("user-read-playback-state"),
 
-    userFollowModify("user-follow-modify"),
-    userFollowRead("user-follow-read"),
+    /**
+     * Write access to a user’s playback state
+     */
+    USER_MODIFY_PLAYBACK_STATE("user-modify-playback-state"),
 
-    userLibraryModify("user-library-modify"),
-    userLibraryRead("user-library-read"),
+    /**
+     * Read access to a user’s currently playing content
+     */
+    USER_READ_CURRENTLY_PLAYING("user-read-currently-playing"),
 
-    userReadEmail("user-read-email"),
-    userReadPrivate("user-read-private")
+    /**
+     * Remote control playback of Spotify. This scope is currently available to Spotify iOS and Android SDKs
+     */
+    APP_REMOTE_CONTROL("app-remote-control"),
+
+    /**
+     * Control playback of a Spotify track. This scope is currently available to the Web Playback SDK. The user must have a Spotify Premium account
+     */
+    STREAMING("streaming"),
+
+    /**
+     * Write access to a user's public playlists
+     */
+    PLAYLIST_MODIFY_PUBLIC("playlist-modify-public"),
+
+    /**
+     * Write access to a user's private playlists
+     */
+    PLAYLIST_MODIFY_PRIVATE("playlist-modify-private"),
+
+    /**
+     * Read access to user's private playlists
+     */
+    PLAYLIST_READ_PRIVATE("playlist-read-private"),
+
+    /**
+     * Include collaborative playlists when requesting a user's playlists
+     */
+    PLAYLIST_READ_COLLABORATIVE("playlist-read-collaborative"),
+
+    /**
+     * Write/delete access to the list of artists and other users that the user follows
+     */
+    USER_FOLLOW_MODIFY("user-follow-modify"),
+
+    /**
+     * Read access to the list of artists and other users that the user follows
+     */
+    USER_FOLLOW_READ("user-follow-read"),
+
+    /**
+     * Write/delete access to a user's "Your Music" library
+     */
+    USER_LIBRARY_MODIFY("user-library-modify"),
+
+    /**
+     * Read access to a user's "Your Music" library
+     */
+    USER_LIBRARY_READ("user-library-read"),
+
+    /**
+     * Read access to user’s email address
+     */
+    USER_READ_EMAIL("user-read-email"),
+
+    /**
+     * Read access to user’s subscription details (type of user account)
+     */
+    USER_READ_PRIVATE("user-read-private")
 }

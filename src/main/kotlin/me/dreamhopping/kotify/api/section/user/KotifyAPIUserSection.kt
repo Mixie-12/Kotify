@@ -22,14 +22,18 @@ import me.dreamhopping.kotify.api.section.KotifyAPISection
 import me.dreamhopping.kotify.api.section.user.types.KotifyUserCurrentTrack
 import me.dreamhopping.kotify.api.section.user.types.KotifyUserPlaylists
 import me.dreamhopping.kotify.api.section.user.types.KotifyUserProfile
+import me.dreamhopping.kotify.api.section.user.types.KotifyUserSavedAlbums
 
 class KotifyAPIUserSection(private val api: KotifyAPI) : KotifyAPISection() {
     private val apiPath: String = "me"
 
     fun fetchProfile(): KotifyUserProfile? = this.makeRequest("${api.url}/$apiPath", api.credentials)
-    fun fetchPlaylists(): KotifyUserPlaylists? =
-        this.makeRequest("${api.url}/$apiPath/playlists", api.credentials)
-    fun fetchCurrentTrack(): KotifyUserCurrentTrack? {
-        return this.makeRequest("${api.url}/$apiPath/player", api.credentials)
-    }
+    fun fetchPlaylists(): KotifyUserPlaylists? = this.makeRequest("${api.url}/$apiPath/playlists", api.credentials)
+    fun fetchCurrentTrack(): KotifyUserCurrentTrack? = this.makeRequest("${api.url}/$apiPath/player", api.credentials)
+
+    /**
+     * Requires the "user-library-read" scope
+     */
+    fun fetchSavedAlbums(limit: Int = 20, offset: Int = 0): KotifyUserSavedAlbums? =
+        this.makeRequest("${api.url}/$apiPath/albums?limit=${limit}&offset=${offset}", api.credentials)
 }

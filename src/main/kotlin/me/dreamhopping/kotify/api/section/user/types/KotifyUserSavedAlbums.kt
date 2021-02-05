@@ -15,22 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api.authorization.error
+package me.dreamhopping.kotify.api.section.user.types
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/**
- * The standard error object returned when Spotify has an error during the authorization flow
- *
- * @see <a href="https://developer.spotify.com/documentation/web-api/#authentication-error-object">Spotify's Documentation</a>
- */
 @Serializable
-data class SpotifyAuthenticationError(val error: String, @SerialName("error_description") val description: String) : Exception(description)
-
-/**
- * Thrown when Spotify returns an error response
- *
- * @see SpotifyAuthenticationError
- */
-data class KotifyAuthenticationException(val error: String, val description: String) : Exception(description)
+data class KotifyUserSavedAlbums(
+    val href: String? = null,
+    val items: List<KotifyUserCurrentTrack.Album>? = null,
+    val limit: Int? = null,
+    val next: String? = null,
+    val offset: Int? = null,
+    val previous: Int? = null,
+    val total: Int? = null
+)

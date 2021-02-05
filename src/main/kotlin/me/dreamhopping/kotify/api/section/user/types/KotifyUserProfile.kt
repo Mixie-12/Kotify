@@ -42,33 +42,33 @@ data class KotifyUserProfile(
      * The user's display name on Spotify
      */
     @SerialName("display_name")
-    val displayName: String,
+    val displayName: String? = null,
 
     /**
      * URLs related to this user's account
      */
     @SerialName("external_urls")
-    val externalUrls: Map<String, String>,
+    val externalUrls: Map<String, String>? = null,
 
     /**
      * The user's follower count information
      */
-    val followers: KotifyUserProfileFollowers,
+    val followers: KotifyUserProfileFollowers? = null,
 
     /**
      * The api path to get this user's profile
      */
-    val href: String,
+    val href: String? = null,
 
     /**
      * This user's unique ID on Spotify
      */
-    val id: String,
+    val id: String? = null,
 
     /**
      * Images related to this user's account, for example: Profile Picture
      */
-    val images: List<KotifyUserProfileImage>,
+    val images: List<KotifyUserProfileImage>? = null,
 
     /**
      * This is the user's version of Spotify (premium or free)
@@ -78,24 +78,24 @@ data class KotifyUserProfile(
     /**
      * The object type of this response (user)
      */
-    val type: String,
+    val type: String? = null,
 
     /**
      * The Spotify URI for this user
      */
-    val uri: String
+    val uri: String? = null
 ) {
     @Serializable
-    data class KotifyUserProfileFollowers(val href: String?, val total: Int)
+    data class KotifyUserProfileFollowers(val href: String? = null, val total: Int? = null)
 
     @Serializable
-    data class KotifyUserProfileImage(val height: Int?, val url: String, val width: Int?)
+    data class KotifyUserProfileImage(val height: Int? = null, val url: String? = null, val width: Int? = null)
 
     @Serializable
     data class KotifyUserProfileExplicitContentSettings(
         @SerialName("filter_enabled")
-        val filterEnabled: Boolean,
+        val filterEnabled: Boolean? = null,
         @SerialName("filter_locked")
-        val filterLocked: Boolean
+        val filterLocked: Boolean? = null
     )
 }

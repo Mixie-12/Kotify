@@ -21,7 +21,7 @@ import kotlin.test.assertTrue
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class KotifyAPITest: ShouldSpec() {
+class KotifyAPITest : ShouldSpec() {
     init {
         context("User Profile") {
             should("return correct display name and not throw") {
@@ -70,6 +70,20 @@ class KotifyAPITest: ShouldSpec() {
 
                 assertDoesNotThrow {
                     println(kotify.api.user.fetchCurrentTrack())
+                }
+            }
+        }
+
+        context("Saved Albums") {
+            should("not throw") {
+                val kotify = kotify {
+                    credentials {
+                        accessToken = System.getProperty("accessToken")
+                    }
+                }
+
+                assertDoesNotThrow {
+                    println(kotify.api.user.fetchSavedAlbums())
                 }
             }
         }

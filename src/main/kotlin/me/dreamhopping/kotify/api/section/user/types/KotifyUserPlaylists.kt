@@ -23,56 +23,55 @@ import kotlinx.serialization.json.JsonArray
 
 @Serializable
 data class KotifyUserPlaylists(
-    val href: String,
-    val items: List<Item>,
-    val limit: Long,
+    val href: String? = null,
+    val items: List<Item>? = null,
+    val limit: Long? = null,
     val next: Long? = null,
-    val offset: Long,
+    val offset: Long? = null,
     val previous: Long? = null,
-    val total: Long
+    val total: Long? = null
 ) {
     @Serializable
     data class Item(
-        val collaborative: Boolean,
+        val collaborative: Boolean? = null,
 
         @SerialName("external_urls")
-        val externalUrls: ExternalUrls,
+        val externalUrls: ExternalUrls? = null,
 
-        val href: String,
-        val id: String,
-        val images: JsonArray,
-        val name: String,
-        val owner: Owner,
-        val public: Boolean,
+        val href: String? = null,
+        val id: String? = null,
+        val images: JsonArray? = null,
+        val name: String? = null,
+        val owner: Owner? = null,
+        val public: Boolean? = null,
 
         @SerialName("snapshot_id")
-        val snapshotID: String,
+        val snapshotID: String? = null,
 
-        val tracks: Tracks,
-        val type: String,
-        val uri: String
+        val tracks: Tracks? = null,
+        val type: String? = null,
+        val uri: String? = null
     )
 
     @Serializable
     data class ExternalUrls(
-        val spotify: String
+        val spotify: String? = null
     )
 
     @Serializable
     data class Owner(
         @SerialName("external_urls")
-        val externalUrls: ExternalUrls,
+        val externalUrls: ExternalUrls? = null,
 
-        val href: String,
-        val id: String,
-        val type: String,
-        val uri: String
+        val href: String? = null,
+        val id: String? = null,
+        val type: String? = null,
+        val uri: String? = null
     )
 
     @Serializable
     data class Tracks(
-        val href: String,
-        val total: Long
+        val href: String? = null,
+        val total: Long? = null
     )
-
 }

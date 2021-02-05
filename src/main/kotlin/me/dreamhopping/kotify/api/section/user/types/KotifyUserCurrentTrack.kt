@@ -23,69 +23,70 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class KotifyUserCurrentTrack(
     val context: Context? = null,
-    val timestamp: Long,
+    val timestamp: Long? = null,
 
     @SerialName("progress_ms")
-    val progressMs: Long,
+    val progressMs: Long? = null,
 
     @SerialName("is_playing")
-    val isPlaying: Boolean,
+    val isPlaying: Boolean? = null,
 
     @SerialName("currently_playing_type")
-    val currentlyPlayingType: String,
+    val currentlyPlayingType: String? = null,
 
-    val item: Item
+    val item: Item? = null
 ) {
     @Serializable
     data class Context(
-        @SerialName("external_urls")
-        val externalUrls: ExternalUrls,
+        val href: String? = null,
+        val type: String? = null,
+        val uri: String? = null,
 
-        val href: String,
-        val type: String,
-        val uri: String
+        @SerialName("external_urls")
+        val externalUrls: ExternalUrls? = null
     )
 
     @Serializable
     data class ExternalUrls(
-        val spotify: String
+        val spotify: String? = null
     )
 
     @Serializable
     data class Item(
-        val album: Album,
-        val artists: List<Album>,
+        val album: Album? = null,
+        val artists: List<Album>? = null,
 
         @SerialName("available_markets")
-        val availableMarkets: List<String>,
+        val availableMarkets: List<String>? = null,
 
         @SerialName("disc_number")
-        val discNumber: Long,
+        val discNumber: Long? = null,
 
         @SerialName("duration_ms")
-        val durationMs: Long,
+        val durationMs: Long? = null,
 
-        val explicit: Boolean,
+        val explicit: Boolean? = null,
 
-        @SerialName("external_ids")
-        val ExternalIDs: ExternalIDs,
-
-        @SerialName("external_urls")
-        val externalUrls: ExternalUrls,
-
-        val href: String,
-        val id: String,
-        val name: String,
-        val popularity: Long,
+        val href: String? = null,
+        val id: String? = null,
+        val name: String? = null,
 
         @SerialName("preview_url")
-        val previewURL: String,
+        val previewURL: String? = null,
 
         @SerialName("track_number")
-        val trackNumber: Long,
+        val trackNumber: Long? = null,
 
-        val type: String,
-        val uri: String
+        val type: String? = null,
+        val uri: String? = null,
+
+        val popularity: Long? = null,
+
+        @SerialName("external_ids")
+        val ExternalIDs: ExternalIDs? = null,
+
+        @SerialName("external_urls")
+        val externalUrls: ExternalUrls? = null,
     )
 
     @Serializable
@@ -93,26 +94,26 @@ data class KotifyUserCurrentTrack(
         @SerialName("album_type")
         val albumType: String? = null,
 
-        @SerialName("external_urls")
-        val externalUrls: ExternalUrls,
-
-        val href: String,
-        val id: String,
+        val href: String? = null,
+        val id: String? = null,
         val images: List<Image>? = null,
-        val name: String,
-        val type: String,
-        val uri: String
+        val name: String? = null,
+        val type: String? = null,
+        val uri: String? = null,
+
+        @SerialName("external_urls")
+        val externalUrls: ExternalUrls? = null
     )
 
     @Serializable
     data class Image(
-        val height: Long,
-        val url: String,
-        val width: Long
+        val width: Long? = null,
+        val url: String? = null,
+        val height: Long? = null
     )
 
     @Serializable
     data class ExternalIDs(
-        val isrc: String
+        val isrc: String? = null
     )
 }

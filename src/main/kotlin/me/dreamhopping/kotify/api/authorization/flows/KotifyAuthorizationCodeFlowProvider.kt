@@ -88,10 +88,8 @@ class KotifyAuthorizationCodeFlowBuilder {
     /**
      * A list of scopes (permissions) that your application needs
      */
-    fun scopes(init: KotifyScopesBuilder.() -> Unit): KotifyScopesBuilder {
-        scopesBuilder = KotifyScopesBuilder().apply(init)
-        return scopesBuilder
-    }
+    fun scopes(init: KotifyScopesBuilder.() -> Unit) = KotifyScopesBuilder().apply(init)
+        .also { scopesBuilder = it }
 }
 
 /**
@@ -148,10 +146,10 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
         get() {
             return "https://accounts.spotify.com/authorize" +
                     "?response_type=code" +
-                    "&client_id=$clientID" +
-                    "&scope=${URLEncoder.encode(scopes.joinToString(" ") { it.id }, "utf-8")}" +
-                    "&redirect_uri=${URLEncoder.encode(redirectURI, "utf-8")}" +
-                    "&show_dialog=$showDialog"
+                    "&client_id=${clientID.urlEncoded}" +
+                    "&scope=${scopes.joinToString(" ") { it.id }.urlEncoded}" +
+                    "&redirect_uri=${redirectURI.urlEncoded}" +
+                    "&show_dialog=${showDialog.toString().urlEncoded}"
         }
 
     /**
@@ -173,9 +171,12 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
 
         if (request.statusCode != 200) {
             val error: SpotifyAuthenticationError = Json.decodeFromString(request.text)
-            throw KotifyAuthenticationException(error.error, error.error_description)
+            throw KotifyAuthenticationException(error.error, error.description)
         }
 
         return Json.decodeFromString(request.text)
     }
 }
+
+val String.urlEncoded: String
+    get() = URLEncoder.encode(this, "utf-8")
