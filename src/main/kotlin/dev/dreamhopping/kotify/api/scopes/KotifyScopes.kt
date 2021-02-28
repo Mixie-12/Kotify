@@ -15,22 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.builder.credentials
+package dev.dreamhopping.kotify.api.scopes
 
-data class KotifyCredentials(
-    val accessToken: String,
-    val refreshToken: String?
-)
+/**
+ * The class which holds the list of scopes the user has
+ */
+data class KotifyScopes(val allScopes: List<SpotifyScope> = listOf())
 
-class KotifyCredentialsBuilder {
-    var accessToken: String? = null
-    var refreshToken: String? = null
+class KotifyScopesBuilder {
+    private var scopes = mutableListOf<SpotifyScope>()
 
     /**
-     * Creates a KotifyAuthorizationFlowCredentials instance from this builder
+     * Adds a scope to the list
      */
-    fun build() = KotifyCredentials(
-        accessToken ?: error("accessToken can't be null!"),
-        refreshToken
-    )
+    operator fun SpotifyScope.unaryPlus() {
+        scopes.add(this)
+    }
+
+    /**
+     * Sets the scopes list to all of the available scopes
+     */
+    fun all() {
+        scopes = SpotifyScope.values().toMutableList()
+    }
+
+    /**
+     * Creates a KotifyScopes instance from this builder
+     */
+    fun build(): KotifyScopes {
+        return KotifyScopes(scopes)
+    }
 }

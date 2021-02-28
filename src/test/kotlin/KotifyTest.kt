@@ -17,8 +17,8 @@
 
 import io.kotest.core.spec.style.ShouldSpec
 import kotlinx.coroutines.runBlocking
-import me.dreamhopping.kotify.api.authorization.error.KotifyAuthenticationException
-import me.dreamhopping.kotify.api.authorization.flows.authorizationCodeFlow
+import dev.dreamhopping.kotify.api.authorization.error.KotifyAuthenticationException
+import dev.dreamhopping.kotify.api.authorization.flows.authorizationCodeFlow
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import java.net.URL

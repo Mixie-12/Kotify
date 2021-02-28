@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api.section.user.types
+package dev.dreamhopping.kotify.api.section.user.types
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

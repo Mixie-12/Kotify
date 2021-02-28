@@ -15,18 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api.authorization
+package dev.dreamhopping.kotify.api.authorization
+
+import dev.dreamhopping.kotify.api.authorization.flows.KotifyAuthorizationCodeFlowBuilder
 
 /**
- * There are 4 types of authorization flow present in the Spotify API that are supported
+ * There are 4 types of authorization flow present in the Spotify API as of the time of making this
  *   - Authorization Code Flow (refreshable)
  *   - Authorization Code Flow With Proof Key for Code Exchange (refreshable)
  *   - Implicit Grant (not refreshable)
- *   - Client Credentials Flow (not refreshable)
+ *   - Client Credentials Flow (refreshable)
  *
- * This class is to be extended by all of these providers and any future providers
- *
- * @see KotifyAuthorizationFlowProvider
- * @see <a href="https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-flows">Authorization Flows - Spotify</a>
+ * This class allows you to access these providers via their builders
  */
-interface KotifyAuthorizationFlow
+object KotifyAuthorizationFlowProvider {
+    /**
+     * The authorization flow provider
+     *
+     * @see KotifyAuthorizationCodeFlowBuilder
+     */
+    fun authorizationCodeFlow() = KotifyAuthorizationCodeFlowBuilder()
+}

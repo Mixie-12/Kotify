@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api.authorization.flows
+package dev.dreamhopping.kotify.api.authorization.flows
 
 import khttp.post
 import khttp.structures.authorization.BasicAuthorization
@@ -23,10 +23,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import me.dreamhopping.kotify.api.authorization.KotifyAuthorizationFlow
-import me.dreamhopping.kotify.api.authorization.error.KotifyAuthenticationException
-import me.dreamhopping.kotify.api.authorization.error.SpotifyAuthenticationError
-import me.dreamhopping.kotify.api.scopes.KotifyScopesBuilder
+import dev.dreamhopping.kotify.api.authorization.KotifyAuthorizationFlow
+import dev.dreamhopping.kotify.api.authorization.error.KotifyAuthenticationException
+import dev.dreamhopping.kotify.api.authorization.error.SpotifyAuthenticationError
+import dev.dreamhopping.kotify.api.scopes.KotifyScopesBuilder
 import java.net.URLEncoder
 
 /**

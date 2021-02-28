@@ -15,17 +15,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api.section.user.types
+package dev.dreamhopping.kotify.builder.credentials
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class KotifyUserSavedAlbums(
-    val href: String? = null,
-    val items: List<KotifyUserCurrentTrack.Album>? = null,
-    val limit: Int? = null,
-    val next: String? = null,
-    val offset: Int? = null,
-    val previous: Int? = null,
-    val total: Int? = null
+data class KotifyCredentials(
+    val accessToken: String,
+    val refreshToken: String?
 )
+
+class KotifyCredentialsBuilder {
+    var accessToken: String? = null
+    var refreshToken: String? = null
+
+    /**
+     * Creates a KotifyAuthorizationFlowCredentials instance from this builder
+     */
+    fun build() = KotifyCredentials(
+        accessToken ?: error("accessToken can't be null!"),
+        refreshToken
+    )
+}

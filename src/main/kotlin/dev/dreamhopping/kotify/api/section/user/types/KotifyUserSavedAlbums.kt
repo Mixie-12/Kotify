@@ -15,25 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api
+package dev.dreamhopping.kotify.api.section.user.types
 
-import me.dreamhopping.kotify.api.section.user.KotifyAPIUserSection
-import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
+import kotlinx.serialization.Serializable
 
-/**
- * The main class that handles interaction between Kotify and the Spotify API
- *
- * @param credentials The credentials used to exchange information with the Spotify API
- */
-class KotifyAPI(internal val credentials: KotifyCredentials) {
-    /**
-     * The base URL for the Spotify API
-     */
-    internal val url = "https://api.spotify.com/v1"
-
-    /**
-     * Information related to the user
-     * For example: profile, playback state, etc.
-     */
-    val user = KotifyAPIUserSection(this)
-}
+@Serializable
+data class KotifyUserSavedAlbums(
+    val href: String? = null,
+    val items: List<KotifyUserCurrentTrack.Album>? = null,
+    val limit: Int? = null,
+    val next: String? = null,
+    val offset: Int? = null,
+    val previous: Int? = null,
+    val total: Int? = null
+)

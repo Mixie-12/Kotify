@@ -15,14 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api.section.user
+package dev.dreamhopping.kotify.api.section.user
 
-import me.dreamhopping.kotify.api.KotifyAPI
-import me.dreamhopping.kotify.api.section.KotifyAPISection
-import me.dreamhopping.kotify.api.section.user.types.KotifyUserCurrentTrack
-import me.dreamhopping.kotify.api.section.user.types.KotifyUserPlaylists
-import me.dreamhopping.kotify.api.section.user.types.KotifyUserProfile
-import me.dreamhopping.kotify.api.section.user.types.KotifyUserSavedAlbums
+import dev.dreamhopping.kotify.api.KotifyAPI
+import dev.dreamhopping.kotify.api.section.KotifyAPISection
+import dev.dreamhopping.kotify.api.section.user.types.KotifyUserCurrentTrack
+import dev.dreamhopping.kotify.api.section.user.types.KotifyUserPlaylists
+import dev.dreamhopping.kotify.api.section.user.types.KotifyUserProfile
+import dev.dreamhopping.kotify.api.section.user.types.KotifyUserSavedAlbums
 
 class KotifyAPIUserSection(private val api: KotifyAPI) : KotifyAPISection() {
     private val apiPath: String = "me"

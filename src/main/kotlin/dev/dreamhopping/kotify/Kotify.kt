@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify
+package dev.dreamhopping.kotify
 
-import me.dreamhopping.kotify.api.KotifyAPI
-import me.dreamhopping.kotify.builder.KotifyBuilder
-import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
+import dev.dreamhopping.kotify.api.KotifyAPI
+import dev.dreamhopping.kotify.builder.KotifyBuilder
+import dev.dreamhopping.kotify.builder.credentials.KotifyCredentials
 
 /**
  * The main class for Kotify

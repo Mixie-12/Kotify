@@ -15,24 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api.authorization
+package dev.dreamhopping.kotify.api.section.error
 
-import me.dreamhopping.kotify.api.authorization.flows.KotifyAuthorizationCodeFlowBuilder
+import kotlinx.serialization.Serializable
 
 /**
- * There are 4 types of authorization flow present in the Spotify API as of the time of making this
- *   - Authorization Code Flow (refreshable)
- *   - Authorization Code Flow With Proof Key for Code Exchange (refreshable)
- *   - Implicit Grant (not refreshable)
- *   - Client Credentials Flow (refreshable)
+ * The standard error object returned when Spotify has an error during an API request
  *
- * This class allows you to access these providers via their builders
+ * @see <a href="https://developer.spotify.com/documentation/web-api/#authentication-error-object">Spotify's Documentation</a>
  */
-object KotifyAuthorizationFlowProvider {
-    /**
-     * The authorization flow provider
-     *
-     * @see KotifyAuthorizationCodeFlowBuilder
-     */
-    fun authorizationCodeFlow() = KotifyAuthorizationCodeFlowBuilder()
+@Serializable
+data class SpotifyAPIRequestError(val error: SpotifyAPIError) {
+    @Serializable
+    data class SpotifyAPIError(val status: Int, val message: String)
 }
+
+/**
+ * Thrown when Spotify returns an error response
+ *
+ * @see SpotifyAPIRequestError
+ */
+data class KotifyAPIRequestException(val status: Int, override val message: String) : Exception()

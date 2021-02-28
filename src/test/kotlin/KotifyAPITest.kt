@@ -1,6 +1,6 @@
 import io.kotest.core.spec.style.ShouldSpec
 import kotlinx.coroutines.runBlocking
-import me.dreamhopping.kotify.kotify
+import dev.dreamhopping.kotify.kotify
 import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.assertTrue
 

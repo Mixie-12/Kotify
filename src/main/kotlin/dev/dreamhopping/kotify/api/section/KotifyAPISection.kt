@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api.section
+package dev.dreamhopping.kotify.api.section
 
 import khttp.get
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import me.dreamhopping.kotify.api.section.error.KotifyAPIRequestException
-import me.dreamhopping.kotify.builder.credentials.KotifyCredentials
+import dev.dreamhopping.kotify.api.section.error.KotifyAPIRequestException
+import dev.dreamhopping.kotify.builder.credentials.KotifyCredentials
 
 /**
  * A section of the Kotify API

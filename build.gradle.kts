@@ -6,7 +6,7 @@ plugins {
     `maven-publish`
 }
 
-group = "me.dreamhopping"
+group = "dev.dreamhopping"
 version = "1.0.0"
 
 repositories {

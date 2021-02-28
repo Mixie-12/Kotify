@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.dreamhopping.kotify.api.scopes
+package dev.dreamhopping.kotify.api.scopes
 
 /**
  * Scopes enable your application to access specific API endpoints on behalf of a user
