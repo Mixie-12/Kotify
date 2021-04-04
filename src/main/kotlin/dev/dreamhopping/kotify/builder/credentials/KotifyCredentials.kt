@@ -30,7 +30,7 @@ class KotifyCredentialsBuilder {
      * Creates a KotifyAuthorizationFlowCredentials instance from this builder
      */
     fun build() = KotifyCredentials(
-        accessToken ?: error("accessToken can't be null!"),
+        accessToken ?: throw IllegalStateException("accessToken can't be null!"),
         refreshToken
     )
 }
