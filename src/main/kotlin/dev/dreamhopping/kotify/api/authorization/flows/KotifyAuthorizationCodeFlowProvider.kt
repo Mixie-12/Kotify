@@ -43,7 +43,7 @@ data class KotifyTokenResponse(
     @SerialName("expires_in")
     val expiresIn: Int,
     @SerialName("refresh_token")
-    val refreshToken: String,
+    val refreshToken: String? = null,
     val scope: String
 )
 
@@ -119,7 +119,6 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
 
     /**
      * The client secret provided to you by Spotify
-     *
      * Can be null, authorize request will throw but getAuthorizeURL will function fine
      */
     private val clientSecret = builder.clientSecret
@@ -163,6 +162,32 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
         if (clientSecret == null) throw KotifyAuthenticationException("Error", "clientSecret can not be null")
 
         val body = mapOf("grant_type" to "authorization_code", "code" to code, "redirect_uri" to redirectURI)
+        val request = post(
+            url = "https://accounts.spotify.com/api/token",
+            auth = BasicAuthorization(clientID, clientSecret),
+            data = body
+        )
+
+        if (request.statusCode != 200) {
+            val error: SpotifyAuthenticationError = Json.decodeFromString(request.text)
+            throw KotifyAuthenticationException(error.error, error.description)
+        }
+
+        return Json.decodeFromString(request.text)
+    }
+
+    /**
+     * Get a new access token for an existing refresh token
+     *
+     * @param refreshToken: This is received from the Spotify API when [authorize] is called
+     * @throws KotifyAuthenticationException
+     */
+    @Throws(KotifyAuthenticationException::class)
+    fun refresh(refreshToken: String): KotifyTokenResponse {
+        if (clientSecret.isNullOrEmpty()) throw KotifyAuthenticationException("refresh", "clientSecret can not be null or empty")
+        if (refreshToken.isEmpty()) throw KotifyAuthenticationException("refresh", "refreshToken can not be empty")
+
+        val body = mapOf("grant_type" to "refresh_token", "refresh_token" to refreshToken)
         val request = post(
             url = "https://accounts.spotify.com/api/token",
             auth = BasicAuthorization(clientID, clientSecret),
