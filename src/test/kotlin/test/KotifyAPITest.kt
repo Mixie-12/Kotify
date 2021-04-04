@@ -1,3 +1,5 @@
+package test
+
 import io.kotest.core.spec.style.ShouldSpec
 import kotlinx.coroutines.runBlocking
 import dev.dreamhopping.kotify.kotify

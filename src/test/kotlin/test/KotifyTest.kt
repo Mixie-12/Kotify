@@ -1,4 +1,4 @@
-/*
+package test/*
  * Copyright (c) 2021 dreamhopping <https://github.com/dreamhopping>
  *
  * This program is free software: you can redistribute it and/or modify
