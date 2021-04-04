@@ -80,8 +80,8 @@ class AuthorizationCodeFlowTest : ShouldSpec() {
                 assertDoesNotThrow {
                     runBlocking {
                         val response = authFlow.authorize(System.getProperty("code"))
-                        println(response.accessToken)
-                        assertTrue(response.accessToken.length > 1)
+                        println(response)
+                        assertTrue(response.accessToken.isNotEmpty())
                     }
                 }
             }
