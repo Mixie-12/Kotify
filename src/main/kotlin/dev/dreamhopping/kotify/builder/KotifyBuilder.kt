@@ -18,6 +18,7 @@
 package dev.dreamhopping.kotify.builder
 
 import dev.dreamhopping.kotify.Kotify
+import dev.dreamhopping.kotify.builder.credentials.KotifyCredentials
 import dev.dreamhopping.kotify.builder.credentials.KotifyCredentialsBuilder
 
 class KotifyBuilder {
@@ -40,5 +41,14 @@ class KotifyBuilder {
     fun build(): Kotify {
         return Kotify(this)
     }
-}
 
+    companion object {
+        /**
+         * A builder for [KotifyCredentials]
+         * This allows the user to change the [Kotify.credentials] variable if required without allocating a new Kotify instance
+         */
+        fun credentials(init: KotifyCredentialsBuilder.() -> Unit): KotifyCredentials {
+            return KotifyCredentialsBuilder().apply(init).build()
+        }
+    }
+}
