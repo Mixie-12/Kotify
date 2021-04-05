@@ -28,7 +28,7 @@ import dev.dreamhopping.kotify.builder.credentials.KotifyCredentials
  * @see kotify
  */
 class Kotify(builder: KotifyBuilder) {
-    val credentials: KotifyCredentials = builder.credentialsBuilder.build()
+    var credentials: KotifyCredentials = builder.credentialsBuilder.build()
     val api: KotifyAPI = KotifyAPI(credentials)
 }
 
