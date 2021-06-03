@@ -1,12 +1,12 @@
 ## Kotify
 
-### What is Kotify?
+### About Kotify
 
-Kotify is a lightweight and modern API Wrapper for Kotlin. It uses a Kotlin DSL syntax for ease of use and readability.
+Kotify is a lightweight and modern Kotlin API Wrapper for Spotify. It uses a Kotlin DSL syntax for ease of use and readability.
 
 It is currently under development, and the API is subject to change
 
-### Using Kotify
+### Usage
 
 Using Kotify to get a user's profile name
 
