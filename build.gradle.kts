@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.31"
-    kotlin("plugin.serialization") version "1.4.31"
+    kotlin("jvm") version "1.5.10"
+    kotlin("plugin.serialization") version "1.5.10"
     `maven-publish`
 }
 
@@ -15,8 +15,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test-junit5"))
-    testImplementation("io.kotest:kotest-runner-junit5:4.3.2")
+    testImplementation(kotlin("test"))
 
     implementation("com.github.jkcclemens:khttp:-SNAPSHOT")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
@@ -37,6 +36,3 @@ publishing {
         }
     }
 }
-
-// Disable test tasks
-tasks.withType<Test> { enabled = false }
