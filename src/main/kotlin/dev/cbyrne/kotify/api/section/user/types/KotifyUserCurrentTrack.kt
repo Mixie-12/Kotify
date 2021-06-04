@@ -106,7 +106,7 @@ data class KotifyUserCurrentTrack(
     )
 
     @Serializable
-    data class Artist (
+    data class Artist(
         @SerialName("external_urls")
         val externalUrls: ExternalUrls? = null,
 

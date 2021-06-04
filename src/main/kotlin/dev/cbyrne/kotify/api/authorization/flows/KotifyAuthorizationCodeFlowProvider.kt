@@ -17,16 +17,16 @@
 
 package dev.cbyrne.kotify.api.authorization.flows
 
+import dev.cbyrne.kotify.api.authorization.KotifyAuthorizationFlow
+import dev.cbyrne.kotify.api.authorization.error.KotifyAuthenticationException
+import dev.cbyrne.kotify.api.authorization.error.SpotifyAuthenticationError
+import dev.cbyrne.kotify.api.scopes.KotifyScopesBuilder
 import khttp.post
 import khttp.structures.authorization.BasicAuthorization
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import dev.cbyrne.kotify.api.authorization.KotifyAuthorizationFlow
-import dev.cbyrne.kotify.api.authorization.error.KotifyAuthenticationException
-import dev.cbyrne.kotify.api.authorization.error.SpotifyAuthenticationError
-import dev.cbyrne.kotify.api.scopes.KotifyScopesBuilder
 import java.net.URLEncoder
 
 /**
@@ -184,7 +184,10 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
      */
     @Throws(KotifyAuthenticationException::class)
     fun refresh(refreshToken: String): KotifyTokenResponse {
-        if (clientSecret.isNullOrEmpty()) throw KotifyAuthenticationException("refresh", "clientSecret can not be null or empty")
+        if (clientSecret.isNullOrEmpty()) throw KotifyAuthenticationException(
+            "refresh",
+            "clientSecret can not be null or empty"
+        )
         if (refreshToken.isEmpty()) throw KotifyAuthenticationException("refresh", "refreshToken can not be empty")
 
         val body = mapOf("grant_type" to "refresh_token", "refresh_token" to refreshToken)

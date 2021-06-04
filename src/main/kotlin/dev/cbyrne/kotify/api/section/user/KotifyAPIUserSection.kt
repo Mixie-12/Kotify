@@ -56,5 +56,4 @@ class KotifyAPIUserSection(private val api: KotifyAPI) : KotifyAPISection() {
             api.credentials
         )
     }
-
 }

@@ -17,28 +17,27 @@
 
 package dev.cbyrne.kotify.api.section
 
+import dev.cbyrne.kotify.api.section.error.KotifyAPIRequestException
+import dev.cbyrne.kotify.builder.credentials.KotifyCredentials
 import khttp.get
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import dev.cbyrne.kotify.api.section.error.KotifyAPIRequestException
-import dev.cbyrne.kotify.builder.credentials.KotifyCredentials
 
 /**
  * A section of the Kotify API
  */
 abstract class KotifyAPISection {
-    val json = Json {
+    internal val json = Json {
         ignoreUnknownKeys = true
         isLenient = true
     }
 
     @Throws(KotifyAPIRequestException::class)
-    inline fun <reified T> makeRequest(url: String, credentials: KotifyCredentials): T? {
+    internal inline fun <reified T> makeRequest(url: String, credentials: KotifyCredentials): T? {
         val response = get(url, mapOf("Authorization" to "Bearer ${credentials.accessToken}"))
         if (response.statusCode == 204) {
-            // No content was supplied
             return null
-        }else if (response.statusCode != 200) {
+        } else if (response.statusCode != 200) {
             throw KotifyAPIRequestException(response.statusCode, response.text)
         }
 

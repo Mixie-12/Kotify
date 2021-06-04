@@ -26,7 +26,8 @@ import kotlinx.serialization.Serializable
  * @see <a href="https://developer.spotify.com/documentation/web-api/#authentication-error-object">Spotify's Documentation</a>
  */
 @Serializable
-data class SpotifyAuthenticationError(val error: String, @SerialName("error_description") val description: String) : Exception(description)
+data class SpotifyAuthenticationError(val error: String, @SerialName("error_description") val description: String) :
+    Exception(description)
 
 /**
  * Thrown when Spotify returns an error response
