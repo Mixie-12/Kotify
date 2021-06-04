@@ -54,7 +54,7 @@ data class KotifyUserCurrentTrack(
     @Serializable
     data class Item(
         val album: Album? = null,
-        val artists: List<Album>? = null,
+        val artists: List<Artist>? = null,
 
         @SerialName("available_markets")
         val availableMarkets: List<String>? = null,
@@ -103,6 +103,18 @@ data class KotifyUserCurrentTrack(
 
         @SerialName("external_urls")
         val externalUrls: ExternalUrls? = null
+    )
+
+    @Serializable
+    data class Artist (
+        @SerialName("external_urls")
+        val externalUrls: ExternalUrls? = null,
+
+        val href: String? = null,
+        val id: String? = null,
+        val name: String? = null,
+        val type: String? = null,
+        val uri: String? = null
     )
 
     @Serializable
