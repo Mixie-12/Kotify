@@ -11,7 +11,7 @@ You can add Kotify to your project via [Jitpack](https://jitpack.io)
 ```groovy
 repositories {
     mavenCentral()
-    
+
     // Required to retrieve Kotify from GitHub
     maven("https://jitpack.io/")
 }
@@ -38,7 +38,8 @@ val profile = kotify.api.user.fetchProfile()
 val displayName = profile?.displayName
 ```
 
-Retrieving an authorization URL ([using the authorization code flow method](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow)):
+Retrieving an authorization
+URL ([using the authorization code flow method](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow)):
 
 ```kotlin
 val flow = authorizationCodeFlow {
@@ -65,7 +66,8 @@ val flow = authorizationCodeFlow {
 val url = flow.authorizationURL
 ```
 
-Exchanging an authorization code for an access & refresh token ([using the authorization code flow method](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow)):
+Exchanging an authorization code for an access & refresh
+token ([using the authorization code flow method](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow)):
 
 ```kotlin
 val authFlow = authorizationCodeFlow {
@@ -117,6 +119,7 @@ try {
 ```
 
 Authorization exceptions:
+
 ```kotlin
 val authFlow = authorizationCodeFlow {
     ...
