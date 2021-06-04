@@ -19,10 +19,8 @@ package dev.cbyrne.kotify.api.section.user
 
 import dev.cbyrne.kotify.api.KotifyAPI
 import dev.cbyrne.kotify.api.section.KotifyAPISection
-import dev.cbyrne.kotify.api.section.user.types.KotifyUserCurrentTrack
-import dev.cbyrne.kotify.api.section.user.types.KotifyUserPlaylists
-import dev.cbyrne.kotify.api.section.user.types.KotifyUserProfile
-import dev.cbyrne.kotify.api.section.user.types.KotifyUserSavedAlbums
+import dev.cbyrne.kotify.api.section.user.types.*
+import dev.cbyrne.kotify.api.time.SpotifyAPITimeRange
 
 class KotifyAPIUserSection(private val api: KotifyAPI) : KotifyAPISection() {
     private val apiPath: String = "me"
@@ -36,4 +34,27 @@ class KotifyAPIUserSection(private val api: KotifyAPI) : KotifyAPISection() {
      */
     fun fetchSavedAlbums(limit: Int = 20, offset: Int = 0): KotifyUserSavedAlbums? =
         this.makeRequest("${api.url}/$apiPath/albums?limit=${limit}&offset=${offset}", api.credentials)
+
+    fun fetchTopTracks(
+        time_range: SpotifyAPITimeRange = SpotifyAPITimeRange.MEDIUM,
+        limit: Int = 20,
+        offset: Int = 0
+    ): KotifyUserTopTracks? {
+        return this.makeRequest(
+            "${api.url}/$apiPath/top/tracks?limit=${limit}&offset=${offset}&time_range=${time_range.value}",
+            api.credentials
+        )
+    }
+
+    fun fetchTopArtists(
+        time_range: SpotifyAPITimeRange = SpotifyAPITimeRange.MEDIUM,
+        limit: Int = 20,
+        offset: Int = 0
+    ): KotifyUserTopArtists? {
+        return this.makeRequest(
+            "${api.url}/$apiPath/top/artists?limit=${limit}&offset=${offset}&time_range=${time_range.value}",
+            api.credentials
+        )
+    }
+
 }
