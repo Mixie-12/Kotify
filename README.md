@@ -1,14 +1,29 @@
-## Kotify
+# Kotify
 
-### About Kotify
+Kotify is a lightweight and modern Kotlin API Wrapper for
+the [Spotify Web API](https://developer.spotify.com/documentation/web-api). It is currently under development, and the
+implementation is subject to change.
 
-Kotify is a lightweight and modern Kotlin API Wrapper for Spotify. It uses a Kotlin DSL syntax for ease of use and readability.
+## Installation
 
-It is currently under development, and the API is subject to change
+You can add Kotify to your project via [Jitpack](https://jitpack.io)
 
-### Usage
+```groovy
+repositories {
+    mavenCentral()
+    
+    // Required to retrieve Kotify from GitHub
+    maven("https://jitpack.io/")
+}
 
-Using Kotify to get a user's profile name
+dependencies {
+    implementation("com.github.cbyrneee:Kotify:latest-commit-hash")
+}
+```
+
+## Usage
+
+Using Kotify to get a user's profile name:
 
 ```kotlin
 val kotify = kotify {
@@ -81,8 +96,10 @@ val accessToken = tokenDetails.accessToken
 val refreshToken = tokenDetails.refreshToken
 ```
 
-##### Handling exceptions
+### Handling exceptions
+
 API exceptions:
+
 ```kotlin
 val kotify = kotify {
     credentials {
@@ -112,3 +129,13 @@ try {
     e.printStackTrace()
 }
 ```
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests when adding new features.
+
+## License
+
+[GPL 3.0](https://choosealicense.com/licenses/gpl-3.0/)
