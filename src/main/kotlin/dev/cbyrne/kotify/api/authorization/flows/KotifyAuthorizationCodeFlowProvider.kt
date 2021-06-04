@@ -89,8 +89,7 @@ class KotifyAuthorizationCodeFlowBuilder {
     /**
      * A list of scopes (permissions) that your application needs
      */
-    fun scopes(init: KotifyScopesBuilder.() -> Unit) = KotifyScopesBuilder().apply(init)
-        .also { scopesBuilder = it }
+    fun scopes(init: KotifyScopesBuilder.() -> Unit) = KotifyScopesBuilder().apply(init).also { scopesBuilder = it }
 }
 
 /**
@@ -160,21 +159,8 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
      */
     @Throws(KotifyAuthenticationException::class)
     fun authorize(code: String): KotifyTokenResponse {
-        if (clientSecret == null) throw KotifyAuthenticationException("Error", "clientSecret can not be null")
-
         val body = mapOf("grant_type" to "authorization_code", "code" to code, "redirect_uri" to redirectURI)
-        val request = post(
-            url = "https://accounts.spotify.com/api/token",
-            auth = BasicAuthorization(clientID, clientSecret),
-            data = body
-        )
-
-        if (request.statusCode != 200) {
-            val error: SpotifyAuthenticationError = Json.decodeFromString(request.text)
-            throw KotifyAuthenticationException(error.error, error.description)
-        }
-
-        return Json.decodeFromString(request.text)
+        return tokenRequest(body)
     }
 
     /**
@@ -185,13 +171,23 @@ class KotifyAuthorizationCodeFlowProvider(builder: KotifyAuthorizationCodeFlowBu
      */
     @Throws(KotifyAuthenticationException::class)
     fun refresh(refreshToken: String): KotifyTokenResponse {
+        val body = mapOf("grant_type" to "refresh_token", "refresh_token" to refreshToken)
+        return tokenRequest(body)
+    }
+
+    /**
+     * Makes a request to /api/token with a specific body
+     * This was made as the [authorize] and [refresh] methods were doing the same thing, just with different bodies
+     *
+     * @throws KotifyAuthenticationException
+     * @return an instance of [KotifyTokenResponse]
+     */
+    private fun tokenRequest(body: Map<String, String>): KotifyTokenResponse {
         if (clientSecret.isNullOrEmpty()) throw KotifyAuthenticationException(
             "refresh",
             "clientSecret can not be null or empty"
         )
-        if (refreshToken.isEmpty()) throw KotifyAuthenticationException("refresh", "refreshToken can not be empty")
 
-        val body = mapOf("grant_type" to "refresh_token", "refresh_token" to refreshToken)
         val request = post(
             url = "https://accounts.spotify.com/api/token",
             auth = BasicAuthorization(clientID, clientSecret),
